@@ -1,49 +1,18 @@
 package org.hotnosh.nut.protocol.domain;
 
-import java.util.Map;
+import org.hotnosh.nut.protocol.enums.RpcMsgType;
 
 /**
- * Created on 2017/4/13.
+ * Created on 2017/4/14.
  */
-public class RpcRequest {
+public class RpcRequest extends AbstractMessage {
+    public RpcRequest(String methodName, Class<?>[] types, Object[] args) {
+        header = new RpcHeader();
+        body = new RpcBody();
 
-    private String methodName;
-
-    private Class<?>[] paramTypes;
-
-    private Object[] params;
-
-    private Map<String, String> attachments;
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
-    public Class<?>[] getParamTypes() {
-        return paramTypes;
-    }
-
-    public void setParamTypes(Class<?>[] paramTypes) {
-        this.paramTypes = paramTypes;
-    }
-
-    public Object[] getParams() {
-        return params;
-    }
-
-    public void setParams(Object[] params) {
-        this.params = params;
-    }
-
-    public Map<String, String> getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(Map<String, String> attachments) {
-        this.attachments = attachments;
+        header.setType(RpcMsgType.bizReq.getCode());
+        body.setMethodName(methodName);
+        body.setParamTypes(types);
+        body.setParams(args);
     }
 }
